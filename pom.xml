@@ -12,11 +12,23 @@
         <module>hw01-maven</module>
     </modules>
 
+    <developers>
+        <developer>
+            <id>gvasiliev</id>
+            <name>Gleb Vasiliev</name>
+            <email>vasiliev.g.i@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Moscow</timezone>
+        </developer>
+    </developers>
+
     <name>otus_java_2019_12</name>
 
     <packaging>pom</packaging>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <!-- FIXME change it to the project's website
+    <url>http://www.example.com</url>  -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
