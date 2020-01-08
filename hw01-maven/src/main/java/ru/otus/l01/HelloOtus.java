@@ -5,9 +5,14 @@ import com.google.common.collect.Multiset;
 
 import java.util.Arrays;
 
-public class HelloOtus {
+final class HelloOtus {
+  String wordsToCount;
   public Multiset<String> wordCounter;
   public HelloOtus(String wordsToCount){
+    this.wordsToCount = wordsToCount;
+  }
+
+  public void countWords() {
     wordCounter = HashMultiset.create();
 
     String[] words = wordsToCount.split(" ");
@@ -17,6 +22,5 @@ public class HelloOtus {
     System.out.println(wordsToCount);
     System.out.println("Result:");
     System.out.println(wordCounter);
-
   }
 }
