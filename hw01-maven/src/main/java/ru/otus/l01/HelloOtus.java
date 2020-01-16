@@ -6,8 +6,8 @@ import com.google.common.collect.Multiset;
 import java.util.Arrays;
 
 final class HelloOtus {
-  String wordsToCount;
-  public Multiset<String> wordCounter;
+  private final String wordsToCount;
+  private Multiset<String> wordCounter;
   public HelloOtus(String wordsToCount){
     this.wordsToCount = wordsToCount;
   }
