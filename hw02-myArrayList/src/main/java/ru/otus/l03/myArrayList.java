@@ -3,7 +3,7 @@ package ru.otus.l01;
 import java.util.*;
 
 final class myArrayList implements List<E> {
-  private <E> E[] internalArray;
+  private <E2> E[] internalArray;
   private int size;
 
   @Override
