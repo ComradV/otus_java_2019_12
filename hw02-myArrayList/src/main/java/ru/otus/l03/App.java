@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         List<Integer> myList = new myArrayList<>();
 //        HelloOtus wordCounter = new HelloOtus("USD USD USD JPY AUD SGD HKD CAD CHF GBP EURO INR");
