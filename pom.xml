@@ -11,6 +11,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw02-myArrayList</module>
+        <module>hw09-annotations</module>
     </modules>
 
     <developers>
