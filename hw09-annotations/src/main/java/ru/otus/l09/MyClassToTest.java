@@ -2,6 +2,7 @@ package ru.otus.l09;
 
 public class MyClassToTest {
 
+  @Test
   public int generateFour(){
     return 4;
   }
@@ -14,5 +15,15 @@ public class MyClassToTest {
     return x + 1;
   }
 
+  @Before
+  public void printBefore(){
+    System.out.println("printBefore");
+  }
+  @After
+  public void printAfter(){
+    System.out.println("printAfter");
+  }
+  
 
 }
+
