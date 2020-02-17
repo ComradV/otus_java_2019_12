@@ -11,5 +11,45 @@
 
     <artifactId>hw09-annotations</artifactId>
 
+    <name>hw09-annotations</name>
+
+
+    <!--<dependencies>-->
+    <!--    <dependency>-->
+    <!--        <groupId>com.google.guava</groupId>-->
+    <!--        <artifactId>guava</artifactId>-->
+    <!--    </dependency>-->
+    <!--</dependencies>-->
+
+    <build>
+        <finalName>${project.name}</finalName>
+
+        <plugins>
+            <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.otus.l09.RunnerOfTest</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
