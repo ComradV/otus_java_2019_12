@@ -32,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.l09.RunnerOfTest</mainClass>
+                            <mainClass>ru.otus.l09.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
