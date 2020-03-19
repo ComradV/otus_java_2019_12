@@ -11,6 +11,7 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw02-myArrayList</module>
+        <module>hw11-atm</module>
     </modules>
 
     <developers>
@@ -36,6 +37,9 @@
         <maven.compiler.source>13</maven.compiler.source>
         <maven.compiler.target>13</maven.compiler.target>
         <com.google.guava.version>28.1-jre</com.google.guava.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <junit-jupiter-engine.version>5.5.2</junit-jupiter-engine.version>
+
     </properties>
 
     <dependencyManagement>
@@ -47,6 +51,14 @@
                 <artifactId>guava</artifactId>
                 <version>${com.google.guava.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter-engine.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -60,6 +72,15 @@
                     <version>3.2.0</version>
 
                 </plugin>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <argLine>--enable-preview</argLine>
+                    </configuration>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>

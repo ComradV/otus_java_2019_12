@@ -13,13 +13,12 @@
 
     <name>hw02-myArrayList</name>
 
-
-<!--<dependencies>-->
-<!--    <dependency>-->
-<!--        <groupId>com.google.guava</groupId>-->
-<!--        <artifactId>guava</artifactId>-->
-<!--    </dependency>-->
-<!--</dependencies>-->
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+    </dependencies>
 
 <build>
     <finalName>${project.name}</finalName>
@@ -49,6 +48,11 @@
                 </execution>
             </executions>
         </plugin>
+
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+        </plugin>
+
     </plugins>
 </build>
 
