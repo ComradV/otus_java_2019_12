@@ -18,11 +18,16 @@ class DIYArrayListTest {
 
   @BeforeEach
   void setUp() {
-    diyArrayList = new DIYArrayList<>();
+    diyArrayList = getTestArrayList();
+//    System.out.println(diyArrayList);
+  }
+
+  private DIYArrayList getTestArrayList(){
+    DIYArrayList<Integer> created = new DIYArrayList<>();
     for(int i = 0; i < TEST_SIZE; i++){
-      diyArrayList.add(i*TEST_MULTIPLIER);
+      created.add(i*TEST_MULTIPLIER);
     }
-    System.out.println(diyArrayList);
+    return created;
   }
 
   @Test
@@ -57,6 +62,16 @@ class DIYArrayListTest {
 
   @Test
   void copy(){
+    DIYArrayList<Integer> newDIYArrayList = getTestArrayList();
+    newDIYArrayList.set(0, newDIYArrayList.get(0)+10);
+    System.out.println(diyArrayList);
+    System.out.println(newDIYArrayList);
+
+    Collections.copy(newDIYArrayList,diyArrayList);
+
+
+    System.out.println(diyArrayList);
+    System.out.println(newDIYArrayList);
 
   }
 
