@@ -52,32 +52,60 @@ class DIYArrayListTest {
 
   @Test
   void addAll(){
-    List<Integer> newList = Arrays.asList(new Integer[]{1,2,3,4,5});
-    for(int el:newList){
-//      System.out.println(el);
-    }
     Collections.addAll(diyArrayList,1,2,3);
-    System.out.println(diyArrayList);
+
+    assertEquals(TEST_SIZE+3,diyArrayList.size());
+    assertEquals(1,diyArrayList.get(TEST_SIZE));
+    assertEquals(2,diyArrayList.get(TEST_SIZE+1));
+    assertEquals(3,diyArrayList.get(TEST_SIZE+2));
+
   }
 
   @Test
   void copy(){
     DIYArrayList<Integer> newDIYArrayList = getTestArrayList();
     newDIYArrayList.set(0, newDIYArrayList.get(0)+10);
-    System.out.println(diyArrayList);
-    System.out.println(newDIYArrayList);
+
+    assertNotEquals(newDIYArrayList, diyArrayList);
 
     Collections.copy(newDIYArrayList,diyArrayList);
 
-
-    System.out.println(diyArrayList);
-    System.out.println(newDIYArrayList);
+    assertEquals(newDIYArrayList, diyArrayList);
 
   }
 
   @Test
   void sort(){
+    DIYArrayList<Integer> newDIYArrayList = getTestArrayList();
+
+    Collections.sort(diyArrayList);
+    assertEquals(newDIYArrayList, diyArrayList);
+
+    int a = diyArrayList.get(0);
+    diyArrayList.set(0,diyArrayList.get(1));
+    diyArrayList.set(1,a);
+
+    assertNotEquals(newDIYArrayList, diyArrayList);
+
+    Collections.sort(diyArrayList);
+    assertEquals(newDIYArrayList, diyArrayList);
 
   }
 
+  @Test
+  void equals(){
+    assertEquals(diyArrayList, diyArrayList);
+
+    DIYArrayList<Integer> newDIYArrayList = getTestArrayList();
+    assertTrue(diyArrayList.equals(newDIYArrayList));
+
+    newDIYArrayList.set(0, newDIYArrayList.get(0)+10);
+    assertFalse(diyArrayList.equals(newDIYArrayList));
+
+    newDIYArrayList = getTestArrayList();
+    newDIYArrayList.add(10);
+    assertFalse(diyArrayList.equals(newDIYArrayList));
+
+    assertFalse(diyArrayList.equals(newDIYArrayList));
+  }
 }

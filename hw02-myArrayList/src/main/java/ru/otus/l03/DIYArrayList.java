@@ -252,6 +252,27 @@ public final class DIYArrayList<T> implements List<T> {
   }
 
   @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (obj == null || obj.getClass() != this.getClass()) {
+      return false;
+    }
+    DIYArrayList<T> that = (DIYArrayList<T>) obj;
+    if(that.size() != size()){
+      return false;
+    }
+
+    for(int i = 0; i < size(); i++){
+      if (!get(i).equals(that.get(i))){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
   public ListIterator listIterator(int index) {
     return new Itr(index);
   }
@@ -278,6 +299,11 @@ public final class DIYArrayList<T> implements List<T> {
 
   @Override
   public Object[] toArray(Object[] a) {
-    throw new UnsupportedOperationException();
+    return Arrays.copyOf(internalArray, size);
+  }
+
+  @Override
+  public void sort(Comparator<? super T> c) {
+    Arrays.sort((T[]) internalArray, 0, size, c);
   }
 }
