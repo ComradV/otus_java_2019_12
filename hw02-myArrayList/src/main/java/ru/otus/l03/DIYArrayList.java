@@ -5,8 +5,8 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public final class DIYArrayList<T> implements List<T> {
-  private T[] internalArray;
-  private int size;
+  private T[] internalArray = (T[]) new Object[DEFAULT_CAPACITY];
+  private int size = 0;
 
   private static final int DEFAULT_CAPACITY = 10;
   private static final int GROWTH_RATE = 2;
@@ -16,7 +16,9 @@ public final class DIYArrayList<T> implements List<T> {
   }
 
   public DIYArrayList(int capacity){
-    internalArray = (T[]) new Object[capacity];
+    if(capacity != DEFAULT_CAPACITY) {
+      internalArray = (T[]) new Object[capacity];
+    };
   }
 
 
@@ -70,7 +72,8 @@ public final class DIYArrayList<T> implements List<T> {
   @Override
   public boolean add(T o) {
     if(size == internalArray.length){expand();}
-    internalArray[size++] = o;
+    internalArray[size] = o;
+    size++;
     return true;
   }
 
