@@ -1,0 +1,98 @@
+/opt/jdk-13.0.1/bin/java -Xms128m -Xmx128m -verbose:gc -XX:+UseG1GC -javaagent:/snap/intellij-idea-community/221/lib/idea_rt.jar=41793:/snap/intellij-idea-community/221/bin -Dfile.encoding=UTF-8 -classpath /home/comradv/IdeaProjects/otus_java_2019_12/hw06-gc/target/classes ru.otus.l06.App
+[0.004s][info][gc] Using G1
+[0,014s][info][gc] Periodic GC disabled
+[10,195s][info][gc] GC(0) Pause Young (Normal) (G1 Evacuation Pause) 24M->10M(128M) 27,315ms
+[12,357s][info][gc] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 13M->12M(128M) 11,884ms
+[56,567s][info][gc] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 65M->53M(128M) 34,497ms
+[76,518s][info][gc] GC(3) Pause Young (Normal) (G1 Evacuation Pause) 77M->69M(128M) 11,005ms
+[89,843s][info][gc] GC(4) Pause Young (Concurrent Start) (G1 Evacuation Pause) 84M->84M(128M) 15,129ms
+[89,843s][info][gc] GC(5) Concurrent Cycle
+[89,863s][info][gc] GC(5) Pause Remark 84M->77M(128M) 1,864ms
+[89,878s][info][gc] GC(5) Pause Cleanup 77M->77M(128M) 0,127ms
+[89,879s][info][gc] GC(5) Concurrent Cycle 35,655ms
+[98,931s][info][gc] GC(6) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 88M->88M(128M) 6,835ms
+[102,540s][info][gc] GC(7) Pause Young (Mixed) (G1 Evacuation Pause) 92M->84M(128M) 25,280ms
+[110,886s][info][gc] GC(8) Pause Young (Concurrent Start) (G1 Evacuation Pause) 93M->93M(128M) 7,932ms
+[110,886s][info][gc] GC(9) Concurrent Cycle
+[110,904s][info][gc] GC(9) Pause Remark 93M->85M(128M) 1,389ms
+[110,921s][info][gc] GC(9) Pause Cleanup 85M->85M(128M) 0,057ms
+[110,922s][info][gc] GC(9) Concurrent Cycle 35,676ms
+[116,628s][info][gc] GC(10) Pause Young (Normal) (G1 Evacuation Pause) 91M->91M(128M) 9,952ms
+[123,016s][info][gc] GC(11) Pause Young (Concurrent Start) (G1 Evacuation Pause) 98M->99M(128M) 8,588ms
+[123,016s][info][gc] GC(12) Concurrent Cycle
+[123,056s][info][gc] GC(12) Pause Remark 99M->95M(128M) 0,883ms
+[123,077s][info][gc] GC(12) Pause Cleanup 95M->95M(128M) 0,114ms
+[123,077s][info][gc] GC(12) Concurrent Cycle 60,935ms
+[127,685s][info][gc] GC(13) Pause Young (Normal) (G1 Evacuation Pause) 100M->100M(128M) 8,156ms
+[132,272s][info][gc] GC(14) Pause Young (Concurrent Start) (G1 Evacuation Pause) 105M->105M(128M) 8,244ms
+[132,272s][info][gc] GC(15) Concurrent Cycle
+[132,331s][info][gc] GC(15) Pause Remark 105M->102M(128M) 1,130ms
+[132,354s][info][gc] GC(15) Pause Cleanup 102M->102M(128M) 0,120ms
+[132,354s][info][gc] GC(15) Concurrent Cycle 81,633ms
+[136,835s][info][gc] GC(16) Pause Young (Normal) (G1 Evacuation Pause) 107M->107M(128M) 3,894ms
+[141,496s][info][gc] GC(17) Pause Young (Concurrent Start) (G1 Evacuation Pause) 112M->112M(128M) 6,569ms
+[141,496s][info][gc] GC(18) Concurrent Cycle
+[141,527s][info][gc] GC(18) Pause Remark 112M->109M(128M) 2,556ms
+[141,562s][info][gc] GC(18) Pause Cleanup 109M->109M(128M) 0,158ms
+[141,562s][info][gc] GC(18) Concurrent Cycle 65,565ms
+[143,973s][info][gc] GC(19) Pause Young (Concurrent Start) (G1 Humongous Allocation) 112M->112M(128M) 6,654ms
+[143,973s][info][gc] GC(20) Concurrent Cycle
+[144,022s][info][gc] GC(20) Pause Remark 114M->113M(128M) 1,221ms
+[144,046s][info][gc] GC(20) Pause Cleanup 113M->113M(128M) 0,138ms
+[144,046s][info][gc] GC(20) Concurrent Cycle 73,490ms
+[148,692s][info][gc] GC(21) Pause Young (Prepare Mixed) (G1 Evacuation Pause) 118M->118M(128M) 11,091ms
+[153,218s][info][gc] GC(22) To-space exhausted
+[153,218s][info][gc] GC(22) Pause Young (Mixed) (G1 Evacuation Pause) 123M->126M(128M) 12,089ms
+[153,262s][info][gc] GC(23) Pause Full (G1 Evacuation Pause) 126M->111M(128M) 43,547ms
+[158,382s][info][gc] GC(24) Pause Young (Concurrent Start) (G1 Evacuation Pause) 117M->117M(128M) 6,749ms
+[158,382s][info][gc] GC(25) Concurrent Cycle
+[158,409s][info][gc] GC(25) Pause Remark 117M->117M(128M) 1,069ms
+[158,434s][info][gc] GC(25) Pause Cleanup 117M->117M(128M) 0,146ms
+[158,434s][info][gc] GC(25) Concurrent Cycle 51,943ms
+[163,102s][info][gc] GC(26) To-space exhausted
+[163,102s][info][gc] GC(26) Pause Young (Normal) (G1 Evacuation Pause) 122M->123M(128M) 7,516ms
+[164,861s][info][gc] GC(27) To-space exhausted
+[164,861s][info][gc] GC(27) Pause Young (Concurrent Start) (G1 Evacuation Pause) 125M->125M(128M) 6,864ms
+[164,861s][info][gc] GC(29) Concurrent Cycle
+[164,919s][info][gc] GC(28) Pause Full (G1 Evacuation Pause) 125M->119M(128M) 57,152ms
+[164,919s][info][gc] GC(29) Concurrent Cycle 57,405ms
+[170,662s][info][gc] GC(30) To-space exhausted
+[170,662s][info][gc] GC(30) Pause Young (Normal) (G1 Evacuation Pause) 125M->125M(128M) 8,011ms
+[170,702s][info][gc] GC(31) Pause Full (G1 Evacuation Pause) 125M->123M(128M) 40,152ms
+[172,680s][info][gc] GC(32) To-space exhausted
+[172,680s][info][gc] GC(32) Pause Young (Concurrent Start) (G1 Evacuation Pause) 125M->125M(128M) 8,110ms
+[172,680s][info][gc] GC(34) Concurrent Cycle
+[172,738s][info][gc] GC(33) Pause Full (G1 Evacuation Pause) 125M->124M(128M) 57,991ms
+[172,739s][info][gc] GC(34) Concurrent Cycle 58,083ms
+[172,856s][info][gc] GC(35) To-space exhausted
+[172,856s][info][gc] GC(35) Pause Young (Normal) (G1 Evacuation Pause) 125M->125M(128M) 2,035ms
+[172,894s][info][gc] GC(36) Pause Full (G1 Evacuation Pause) 125M->124M(128M) 37,754ms
+[173,834s][info][gc] GC(37) To-space exhausted
+[173,834s][info][gc] GC(37) Pause Young (Concurrent Start) (G1 Evacuation Pause) 125M->125M(128M) 5,314ms
+[173,834s][info][gc] GC(39) Concurrent Cycle
+[173,894s][info][gc] GC(38) Pause Full (G1 Evacuation Pause) 125M->125M(128M) 60,179ms
+[173,895s][info][gc] GC(39) Concurrent Cycle 60,293ms
+[174,851s][info][gc] GC(40) To-space exhausted
+[174,851s][info][gc] GC(40) Pause Young (Normal) (G1 Evacuation Pause) 126M->126M(128M) 5,560ms
+[174,905s][info][gc] GC(41) Pause Full (G1 Evacuation Pause) 126M->125M(128M) 53,786ms
+[175,863s][info][gc] GC(42) To-space exhausted
+[175,863s][info][gc] GC(42) Pause Young (Concurrent Start) (G1 Evacuation Pause) 126M->126M(128M) 6,638ms
+[175,863s][info][gc] GC(44) Concurrent Cycle
+[175,921s][info][gc] GC(43) Pause Full (G1 Evacuation Pause) 126M->126M(128M) 57,680ms
+[175,960s][info][gc] GC(45) Pause Full (G1 Evacuation Pause) 126M->126M(128M) 39,016ms
+[175,960s][info][gc] GC(44) Concurrent Cycle 96,911ms
+[175,961s][info][gc] GC(46) Pause Young (Normal) (G1 Evacuation Pause) 126M->126M(128M) 0,560ms
+[176,003s][info][gc] GC(47) Pause Full (G1 Evacuation Pause) 126M->126M(128M) 41,648ms
+[176,042s][info][gc] GC(48) Pause Full (G1 Evacuation Pause) 126M->126M(128M) 39,375ms
+[176,043s][info][gc] GC(49) Pause Young (Concurrent Start) (G1 Evacuation Pause) 126M->126M(128M) 0,716ms
+[176,043s][info][gc] GC(51) Concurrent Cycle
+[176,049s][info][gc] GC(50) Pause Full (G1 Evacuation Pause) 126M->2M(128M) 6,086ms
+[176,050s][info][gc] GC(51) Concurrent Cycle 6,238ms
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at ru.otus.l06.TestClass.<init>(TestClass.java:4)
+	at ru.otus.l06.App.main(App.java:20)
+
+Process finished with exit code 1
+
+0.251 seconds G1 Young generation (22 collections)
+0.199 seconds G1 Old generation (4 collections)
