@@ -3,10 +3,19 @@ package ru.otus.l15;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+/**
+ * Returns JSON string. Alternative to Gson writer.
+ * Supports:
+ * Primitives
+ * Array
+ * Collections: List, Map, Set
+ * Objects with fields od described types
+ *
+ * Works with "transient" fields (skips it)
+ * @author  Gleb Vasiliev
+ */
 public abstract class MyGsonWriter {
   static String getJson(Object value) throws IllegalAccessException {
 
@@ -20,34 +29,23 @@ public abstract class MyGsonWriter {
       if(Map.class.isAssignableFrom(valueClass)){
         sb.append("{");
 
-        ((Map)value).forEach((k,v) -> {
-                  try {
-                    sb.append(getJson(k.toString())+":"+getJson(v)+",");
-                  } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                  }
-                });
-        if (sb.charAt(sb.length()-1) == ','){
-          sb.delete(sb.length()-1,sb.length());
+        Set keySet = ((Map)value).keySet();
+        for(Object keyValue:keySet){
+          addToSb(sb,keyValue.toString(),getJson(((Map)value).get(keyValue)));
         }
+
         sb.append("}");
-      } else if (List.class.isAssignableFrom(valueClass)){
+      } else if (List.class.isAssignableFrom(valueClass)||Set.class.isAssignableFrom(valueClass)){
         sb.append("[");
-        for(int i = 0; i < ((List)value).size(); i++){
-          if(i > 0){
-            sb.append(",");
-          }
-//          sb.append(getJson(Array.get(value, i)));
-          sb.append(getJson(((List)value).get(i)));
+        Iterator iter = ((Collection)value).iterator();
+        while (iter.hasNext()){
+          addToSb(sb,getJson(iter.next()));
         }
         sb.append("]");
       } else if(valueClass.isArray()){
         sb.append("[");
         for(int i = 0; i < Array.getLength(value); i++){
-          if(i > 0){
-            sb.append(",");
-          }
-          sb.append(getJson(Array.get(value, i)));
+          addToSb(sb,getJson(Array.get(value, i)));
         }
         sb.append("]");
       } else {
@@ -58,8 +56,6 @@ public abstract class MyGsonWriter {
         Object fieldValue;
         Field[] declaredFields = valueClass.getDeclaredFields();
         for (Field field : declaredFields) {
-//          System.out.println(field);
-//          System.out.println(Modifier.isTransient(field.getModifiers()));
           if(Modifier.isTransient(field.getModifiers())){
             continue;
           }
@@ -68,43 +64,12 @@ public abstract class MyGsonWriter {
           fieldValue = field.get(value);
 
           addToSb(sb,fieldName,getJson(fieldValue));
-
-//          Class fieldType = field.getType();
-//          field.getType().isArray();
-//          if (fieldType.isArray()){
-//            sb.append("[");
-//            for(int i = 0; i < Array.getLength(fieldValue); i++){
-//              if(i > 0){
-//                sb.append(",");
-//              }
-//              sb.append(getJson(Array.get(fieldValue, i)));
-//            }
-//            sb.append("]");
-//          } else {
-//            sb.append(getJson(fieldValue));
-//          }
-
-//      if (field.getType().isPrimitive()){
-//        fieldValue = field.get(obj).toString();
-//        if(sb.length()>1){
-//          sb.append(",");
-//        }
-//        sb.append("\""+fieldName+"\":"+fieldValue);
-          //}// else if (field.getType
         }
         sb.append("}");
       }
       return sb.toString();
 
     }
-
-//      if (value.isArray()){
-//      sb.append("[");
-//      for(int i = 0; i < Array.getLength(fieldValue); i++){
-//        Array.get(fieldValue, i);
-//      }
-//      sb.append("]");
-//    }
 
   }
 
@@ -113,5 +78,13 @@ public abstract class MyGsonWriter {
       sb.append(",");
     }
     sb.append("\""+fieldName+"\":"+fieldValue);
+  }
 
-  }}
+  private static void addToSb(StringBuilder sb, String value) {
+    if(sb.length()>1){
+      sb.append(",");
+    }
+    sb.append(value);
+  }
+
+}

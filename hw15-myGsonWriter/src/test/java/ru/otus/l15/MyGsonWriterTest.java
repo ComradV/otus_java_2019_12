@@ -1,63 +1,55 @@
 package ru.otus.l15;
 
-import com.google.gson.reflect.TypeToken;
-import org.junit.jupiter.api.BeforeAll;
+import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class MyGsonWriterTest {
   Gson gson = new Gson();
+  private static BagOfPrimitivesAndArray getBagOfPrimitives(int a){
+    return new BagOfPrimitivesAndArray(a,"Hello",15,new int[]{1,2,3,4,5});
+  }
 
   @Test
+  @Description("Object, containing primitives and array")
   void getJson1() throws IllegalAccessException {
-    Object ob1 = new BagOfPrimitives(10,"Hello",15,new int[]{1,2,3,4,5});
+    Object ob1 = getBagOfPrimitives(1);
+
     assertEquals(gson.toJson(ob1), MyGsonWriter.getJson(ob1));
   }
 
   @Test
+  @Description("List")
   void getJson2() throws IllegalAccessException {
-    List<Integer> ob2 = List.of(1,2,3);
+    List<Integer> list = List.of(1,2,3);
 
-//    System.out.println(gson.toJson(ob2));
-    assertEquals(gson.toJson(ob2), MyGsonWriter.getJson(ob2));
+    assertEquals(gson.toJson(list), MyGsonWriter.getJson(list));
   }
 
   @Test
+  @Description("Map")
   void getJson3() throws IllegalAccessException {
-    Map<Integer, BagOfPrimitives> ob3 = new HashMap<>();
-    ob3.put(1, new BagOfPrimitives(10,"1",15,new int[]{1,2}));
-    ob3.put(2, new BagOfPrimitives(11,"2",18,new int[]{1,2,3}));
-////    ob3.put(new BagOfPrimitives(10,"1",15,new int[]{1,2}), new BagOfPrimitives(10,"1",15,new int[]{1,2}));
-////    ob3.put(new BagOfPrimitives(11,"2",15,new int[]{1,2}), new BagOfPrimitives(11,"2",18,new int[]{1,2,3}));
-//
-//    String myJson = MyGsonWriter.getJson(ob3);
-////    myJson = gson.toJson(ob3);
-//    System.out.println("My: "+myJson);
-//
-//    System.out.println("Typ:"+gson.toJson(ob3));
-////    System.out.println(new BagOfPrimitives(10,"1",15,new int[]{1,2}));
-//    Type mapType = new TypeToken<Map<Integer, BagOfPrimitives>>(){}.getType();
-//    Map<Integer, BagOfPrimitives> ob4 = gson.fromJson(myJson, mapType);
-//    System.out.println(ob4.get(1));
-//    System.out.println(ob4.get(2));
+    Map<Integer, BagOfPrimitivesAndArray> map = new HashMap<>();
+    map.put(1, getBagOfPrimitives(1));
+    map.put(2, getBagOfPrimitives(2));
 
-    assertEquals(gson.toJson(ob3), MyGsonWriter.getJson(ob3));
+    assertEquals(gson.toJson(map), MyGsonWriter.getJson(map));
   }
 
   @Test
+  @Description("Set")
   void getJson4() throws IllegalAccessException {
-    Map<Integer, BagOfPrimitives> ob4 = new HashMap<>();
-    ob4.put(1, new BagOfPrimitives(10,"1",15,new int[]{1,2}));
-    ob4.put(2, new BagOfPrimitives(11,"2",18,new int[]{1,2,3}));
-    assertEquals(gson.toJson(ob4), MyGsonWriter.getJson(ob4));
+    Set<BagOfPrimitivesAndArray> set = new HashSet<>();
+    set.add(getBagOfPrimitives(1));
+    set.add(getBagOfPrimitives(2));
+    set.add(getBagOfPrimitives(3));
+
+    assertEquals(gson.toJson(set), MyGsonWriter.getJson(set));
   }
+
 }

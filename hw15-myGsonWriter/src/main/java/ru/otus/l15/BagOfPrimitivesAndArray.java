@@ -3,17 +3,17 @@ package ru.otus.l15;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class BagOfPrimitives {
+public class BagOfPrimitivesAndArray {
   private final Integer value1;
   private final String value2;
-  private final int value3;
+  private final transient int value3;
   private int[] arr;
 
-  BagOfPrimitives(int value1, String value2, int value3, int[] value4) {
+  BagOfPrimitivesAndArray(int value1, String value2, int value3, int[] arr) {
     this.value1 = value1;
     this.value2 = value2;
     this.value3 = value3;
-    this.arr = Arrays.copyOf(value4,value4.length);
+    this.arr = Arrays.copyOf(arr,arr.length);
   }
 
   @Override
@@ -21,7 +21,8 @@ public class BagOfPrimitives {
     return "BagOfPrimitives{" +
         "value1=" + value1 +
         ", value2='" + value2 + '\'' +
-        ", value3=" + value3 +
+        ", value3(transient)=" + value3 +
+        ", arr=" + Arrays.toString(arr) +
         '}';
   }
 
@@ -29,14 +30,14 @@ public class BagOfPrimitives {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ru.otus.l15.BagOfPrimitives that = (ru.otus.l15.BagOfPrimitives) o;
+    BagOfPrimitivesAndArray that = (BagOfPrimitivesAndArray) o;
     return value1 == that.value1 &&
-        value3 == that.value3 &&
-        Objects.equals(value2, that.value2);
+        Objects.equals(value2, that.value2) &&
+        Arrays.equals(arr, that.arr);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value1, value2, value3);
+    return Objects.hash(value1, value2, value3, arr);
   }
 }

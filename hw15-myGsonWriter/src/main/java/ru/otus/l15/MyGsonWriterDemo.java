@@ -4,19 +4,19 @@ import com.google.gson.Gson;
 
 public class MyGsonWriterDemo {
   public static void main(String[] args) throws IllegalAccessException {
-    Gson gson = new Gson();
-    BagOfPrimitives obj = new BagOfPrimitives(22, "test", 10, new int[]{1, 2, 3});
+    BagOfPrimitivesAndArray obj = new BagOfPrimitivesAndArray(22, "test", 10, new int[]{1, 2, 3});
     System.out.println(obj);
 
     String myJson = MyGsonWriter.getJson(obj);
-    System.out.println("myJson:\n"+myJson);
+    System.out.println("myJson  :\n"+myJson);
 
-    String json = gson.toJson(obj);
-    System.out.println(json);
+    Gson gson = new Gson();
+    String gsonJson = gson.toJson(obj);
+    System.out.println("gsonJson:\n"+gsonJson);
 
-    BagOfPrimitives obj2 = gson.fromJson(json, BagOfPrimitives.class);
-    System.out.println(obj.equals(obj2));
-    System.out.println(obj2);
+    BagOfPrimitivesAndArray obj2 = gson.fromJson(myJson, BagOfPrimitivesAndArray.class);
+    System.out.println("Objects are equal: " + obj.equals(obj2));
+    System.out.println("Deserialized object: " + obj2);
   }
 
 
