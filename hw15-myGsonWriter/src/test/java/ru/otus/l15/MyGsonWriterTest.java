@@ -16,7 +16,6 @@ class MyGsonWriterTest {
   }
 
   @Test
-  @Description("Object, containing primitives and array")
   void primitivesAndArrayTest() throws IllegalAccessException {
     Object ob1 = getBagOfPrimitives(1);
 
@@ -24,16 +23,14 @@ class MyGsonWriterTest {
   }
 
   @Test
-  @Description("List")
-  void getJson2() throws IllegalAccessException {
+  void ListTest() throws IllegalAccessException {
     List<Integer> list = List.of(1,2,3);
 
     assertEquals(gson.toJson(list), MyGsonWriter.getJson(list));
   }
 
   @Test
-  @Description("Map")
-  void getJson3() throws IllegalAccessException {
+  void MapTest() throws IllegalAccessException {
     Map<Integer, BagOfPrimitivesAndArray> map = new HashMap<>();
     map.put(1, getBagOfPrimitives(1));
     map.put(2, getBagOfPrimitives(2));
@@ -42,8 +39,7 @@ class MyGsonWriterTest {
   }
 
   @Test
-  @Description("Set")
-  void getJson4() throws IllegalAccessException {
+  void SetTest() throws IllegalAccessException {
     Set<BagOfPrimitivesAndArray> set = new HashSet<>();
     set.add(getBagOfPrimitives(1));
     set.add(getBagOfPrimitives(2));
@@ -52,4 +48,23 @@ class MyGsonWriterTest {
     assertEquals(gson.toJson(set), MyGsonWriter.getJson(set));
   }
 
+  @Test
+  void primitivesTest() throws IllegalAccessException {
+
+    assertEquals(gson.toJson(null), MyGsonWriter.getJson(null));
+    assertEquals(gson.toJson((byte)1), MyGsonWriter.getJson(((byte)1)));
+    assertEquals(gson.toJson((byte)1), MyGsonWriter.getJson(((byte)1)));
+    assertEquals(gson.toJson((short)1f), MyGsonWriter.getJson(((short)1f)));
+    assertEquals(gson.toJson(1),MyGsonWriter.getJson((1)));
+    assertEquals(gson.toJson(1L), MyGsonWriter.getJson((1L)));
+    assertEquals(gson.toJson(1f), MyGsonWriter.getJson((1f)));
+    assertEquals(gson.toJson(1d), MyGsonWriter.getJson((1d)));
+    assertEquals(gson.toJson("aaa"), MyGsonWriter.getJson(("aaa")));
+    assertEquals(gson.toJson("a'aa"), MyGsonWriter.getJson(("a'aa")));
+    assertEquals(gson.toJson("a\"aa"), MyGsonWriter.getJson(("a\"aa")));
+    assertEquals(gson.toJson('a'), MyGsonWriter.getJson(('a')));
+    assertEquals(gson.toJson(new int[] {1, 2, 3}), MyGsonWriter.getJson((new int[] {1, 2, 3})));
+    assertEquals(gson.toJson(List.of(1, 2 ,3)), MyGsonWriter.getJson((List.of(1, 2 ,3))));
+    assertEquals(gson.toJson(Collections.singletonList(1)), MyGsonWriter.getJson((Collections.singletonList(1))));
+  }
 }

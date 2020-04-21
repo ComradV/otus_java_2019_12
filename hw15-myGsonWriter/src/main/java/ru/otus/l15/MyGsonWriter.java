@@ -18,34 +18,40 @@ import java.util.*;
  */
 public abstract class MyGsonWriter {
   static String getJson(Object value) throws IllegalAccessException {
-
-    if(value instanceof Number){
+    if (value==null){
+      return "null";
+    } else if(value instanceof Number){
       return value.toString();
-    } else if (value instanceof String){
-      return "\""+value+"\"";
+    } else if (value instanceof String) {
+      return "\"" + ((String)value)
+              .replaceAll("\"","\\\\\"")
+              .replaceAll("'","\\\\u0027")
+              + "\"";
+    } else if (value instanceof Character) {
+      return "\"" + value + "\"";
     } else {
       Class valueClass = value.getClass();
       StringBuilder sb = new StringBuilder();
-      if(Map.class.isAssignableFrom(valueClass)){
+      if (Map.class.isAssignableFrom(valueClass)) {
         sb.append("{");
 
-        Set keySet = ((Map)value).keySet();
-        for(Object keyValue:keySet){
-          addToSb(sb,keyValue.toString(),getJson(((Map)value).get(keyValue)));
+        Set keySet = ((Map) value).keySet();
+        for (Object keyValue : keySet) {
+          addToSb(sb, keyValue.toString(), getJson(((Map) value).get(keyValue)));
         }
 
         sb.append("}");
-      } else if (List.class.isAssignableFrom(valueClass)||Set.class.isAssignableFrom(valueClass)){
+      } else if (List.class.isAssignableFrom(valueClass) || Set.class.isAssignableFrom(valueClass)) {
         sb.append("[");
-        Iterator iter = ((Collection)value).iterator();
-        while (iter.hasNext()){
-          addToSb(sb,getJson(iter.next()));
+        Iterator iter = ((Collection) value).iterator();
+        while (iter.hasNext()) {
+          addToSb(sb, getJson(iter.next()));
         }
         sb.append("]");
-      } else if(valueClass.isArray()){
+      } else if (valueClass.isArray()) {
         sb.append("[");
-        for(int i = 0; i < Array.getLength(value); i++){
-          addToSb(sb,getJson(Array.get(value, i)));
+        for (int i = 0; i < Array.getLength(value); i++) {
+          addToSb(sb, getJson(Array.get(value, i)));
         }
         sb.append("]");
       } else {
@@ -56,14 +62,14 @@ public abstract class MyGsonWriter {
         Object fieldValue;
         Field[] declaredFields = valueClass.getDeclaredFields();
         for (Field field : declaredFields) {
-          if(Modifier.isTransient(field.getModifiers())){
+          if (Modifier.isTransient(field.getModifiers())) {
             continue;
           }
           fieldName = field.getName();
           field.setAccessible(true);
           fieldValue = field.get(value);
 
-          addToSb(sb,fieldName,getJson(fieldValue));
+          addToSb(sb, fieldName, getJson(fieldValue));
         }
         sb.append("}");
       }
