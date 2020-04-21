@@ -17,7 +17,7 @@ class MyGsonWriterTest {
 
   @Test
   @Description("Object, containing primitives and array")
-  void getJson1() throws IllegalAccessException {
+  void primitivesAndArrayTest() throws IllegalAccessException {
     Object ob1 = getBagOfPrimitives(1);
 
     assertEquals(gson.toJson(ob1), MyGsonWriter.getJson(ob1));
