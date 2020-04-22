@@ -5,16 +5,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 
 public class Atm {
   private final Map<Denomination, List<Cell>> cells = new HashMap<>();
   private final DenominationHelper denominationHelper = new DenominationHelper();
-
-  public Atm(int[][] args) throws IllegalAccessException {
+  /**
+   * Constructs a new {@code Atm} with provided cell parameters
+   * For example, if you need ATM with 2 cells of 1000 50-rub bills and 3 cells of 2000 100-rub bills,
+   * tou should use:
+   * <pre>
+   *     Atm atm = new Atm(new int[][]{{2, 1000, 50}, {3, 2000, 100}}); </pre>
+   *
+   * @param   cellDescriptions contains array of [numberOfCells, capacity, denomination] type
+   * @throws  IllegalArgumentException if the specified argument does not contain 3-elements array in each position
+   */
+  public Atm(int[][] cellDescriptions) throws IllegalArgumentException {
 
     int cellAmount, cellCapacity, denomValue;
 
-    for (int[] cellDescription:args){
+    for (int[] cellDescription:cellDescriptions){
       if (cellDescription.length != 3){
         throw new IllegalArgumentException("Use [numOfCells,capacity,denom] arguments!");
       }
