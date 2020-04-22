@@ -1,6 +1,10 @@
 package ru.otus.l11;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Atm {
   private final Map<Denomination, List<Cell>> cells = new HashMap<>();
