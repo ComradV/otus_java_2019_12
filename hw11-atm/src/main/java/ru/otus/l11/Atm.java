@@ -4,35 +4,22 @@ import java.util.*;
 
 public class Atm {
   private final Map<Denomination, List<Cell>> cells = new HashMap<>();
-  private final Map<Integer, Denomination> denomHelper = new HashMap<>();
+  private final DenominationHelper denominationHelper = new DenominationHelper();
 
-  public Atm(String[] args) throws IllegalAccessException {
+  public Atm(int[][] args) throws IllegalAccessException {
 
-    String[] cellParameters;
-    int[] cellParametersInt;
     int cellAmount, cellCapacity, denomValue;
-    Denomination denom;
-    for(Denomination denomination:Denomination.values()){
-      denomHelper.put(denomination.getValue(),denomination);
-    }
-    for (String cellDescriptpion:args) {
-      cellParameters = cellDescriptpion.split("-");
-      if (cellParameters.length % 3 != 0){
-        throw new IllegalArgumentException("Use numOfCella-capacity-denom arguments!");
+
+    for (int[] cellDescription:args){
+      if (cellDescription.length != 3){
+        throw new IllegalArgumentException("Use [numOfCells,capacity,denom] arguments!");
       }
-      cellParametersInt = Arrays.stream(cellParameters).mapToInt(Integer::parseInt).toArray();
-      cellAmount = cellParametersInt[0];
-      cellCapacity = cellParametersInt[1];
-      denomValue = cellParametersInt[2];
-      if(denomHelper.containsKey(denomValue))
-        denom = denomHelper.get(denomValue);
-      else
-        throw new IllegalArgumentException("No denom "+denomValue);
+      cellAmount = cellDescription[0];
+      cellCapacity = cellDescription[1];
+      denomValue = cellDescription[2];
 
-      this.addCell(denom,cellCapacity,cellAmount);
-
+      addCell(denominationHelper.getByValue(denomValue),cellCapacity,cellAmount);
     }
-
   }
 
   public int countValue() {
@@ -46,7 +33,7 @@ public class Atm {
   }
 
   public void addBills(int amount, int denominationValue) throws Exception {
-    Denomination denomination = denomHelper.get(denominationValue);
+    Denomination denomination = denominationHelper.getByValue(denominationValue);
     List<Integer> distribution= new ArrayList<>();
     int amountLeftToDistribute = amount;
     int amountForCurrentCell;
@@ -65,20 +52,26 @@ public class Atm {
 
     }
     if (amountLeftToDistribute != 0)
-      throw new IllegalArgumentException("No space for "+amount+" of "+denominationValue+" bills!");
+      throw new IllegalArgumentException("No space for "+amount+" of "+denominationValue+" bills");
 
     addBillsByDistribution(denomination, distribution);
   }
+
   public void getMoney(int value) throws Exception {
-    Integer[] denomArray = denomHelper.keySet().toArray(new Integer[denomHelper.keySet().size()]);
-    Arrays.sort(denomArray, (a,b) -> b-a);
+    Integer[] denomArray = denominationHelper.getDenominationValuesDescending();
+    if (value > countValue()){
+      throw new Exception("No enough money!");
+    } else if (value < 0){
+      throw new IllegalArgumentException("Unable to get negative sum");
+    }
     int valueLeftToGet = value;
     List<Cell> currentDenominationCellList;
     Map<Integer, List<Integer>> getBillsDistribution= new HashMap<>();
     int requiredAmountOfNominal, amountToGet;
     for(int denomValue:denomArray){
-      currentDenominationCellList = cells.get(denomHelper.get(denomValue));
+      currentDenominationCellList = cells.get(denominationHelper.getByValue(denomValue));
       if(currentDenominationCellList == null) {continue;}
+
       requiredAmountOfNominal = valueLeftToGet / denomValue;
       List<Integer> currentDistributionList = new ArrayList<>();
       getBillsDistribution.put(denomValue, currentDistributionList);
@@ -91,21 +84,24 @@ public class Atm {
       }
       if(valueLeftToGet == 0){break;}
     }
-    if(valueLeftToGet == 0){
-      getBillsByDistribution(getBillsDistribution);
-    } else{
-      throw new Exception("Required sum can't be given");
-    }
 
+    if(valueLeftToGet == 0){
+      getBillsByDistributionMap(getBillsDistribution);
+    } else{
+      throw new Exception("Required sum can't be given - problem with denomination");
+    }
   }
 
-  private void getBillsByDistribution(Map<Integer, List<Integer>> getBillsDistribution) throws CellException {
-    for(Map.Entry<Integer, List<Integer>> entry:getBillsDistribution.entrySet()){
-      List<Cell> cellListOfDenomination = cells.get(denomHelper.get(entry.getKey()));
-      for(int i = 0; i < entry.getValue().size(); i++){
-        cellListOfDenomination.get(i).removeBills(entry.getValue().get(i));
-        System.out.println("Removed "+entry.getValue().get(i)+" bills of nominal "+entry.getKey());
-      }
+  private void getBillsByDistributionMap(Map<Integer, List<Integer>> getBillsDistribution) throws CellException {
+    for(Map.Entry<Integer, List<Integer>> entry:getBillsDistribution.entrySet()) {
+      getBillsByDistribution(denominationHelper.getByValue(entry.getKey()), entry.getValue());
+    }
+  }
+
+  private void getBillsByDistribution(Denomination denomination, List<Integer> distribution) throws CellException {
+    for(int i = 0; i < distribution.size(); i++){
+      cells.get(denomination).get(i).removeBills(distribution.get(i));
+      System.out.println("Removed "+distribution.get(i)+" bills of nominal "+denomination);
     }
   }
 
