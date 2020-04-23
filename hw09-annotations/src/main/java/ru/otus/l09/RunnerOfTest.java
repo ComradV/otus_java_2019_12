@@ -16,14 +16,10 @@ public class RunnerOfTest {
 
   public RunnerOfTest(String className) throws ClassNotFoundException, NoSuchMethodException {
     this.className = className;
-//    System.out.println(className);
-//    String className = "ru.otus.l09.MyClassToTest";
-    ReflectionHelper.fillMethohs(className, methodsBefore, methodsTest, methodsAfter);
-    constructor = ReflectionHelper.getConstructor(className);
-
-//    Class cl = Class.forName(className);
-
-//    distributeMethods(cl.getMethods());
+    ReflectionHelper.addAnnotatedMethodsFromClass(className, "ru.otus.l09.Before", methodsBefore);
+    ReflectionHelper.addAnnotatedMethodsFromClass(className, "ru.otus.l09.Test", methodsTest);
+    ReflectionHelper.addAnnotatedMethodsFromClass(className, "ru.otus.l09.After", methodsAfter);
+    constructor = ReflectionHelper.getConstructorWithoutParameters(className);
 
   }
 
@@ -40,7 +36,9 @@ public class RunnerOfTest {
         success = false;
       }
       success &= runMethods(o, methodsBefore);
-      success &= makeSingleTest(o, methodTest);
+      if(success){
+        success &= makeSingleTest(o, methodTest);
+      }
       success &= runMethods(o, methodsAfter);
       successCounter += success ? 1 : 0;
     }
@@ -55,7 +53,6 @@ public class RunnerOfTest {
       } catch (IllegalAccessException | InvocationTargetException e) {
         e.printStackTrace();
         success = false;
-//        throw e;
       }
     }
     return success;

@@ -10,30 +10,24 @@ final class ReflectionHelper {
 
   }
 
-  static void fillMethohs(String className, List<Method> methodsBefore, List<Method> methodsTest, List<Method> methodsAfter) throws ClassNotFoundException {
-    Class cl = Class.forName(className);
-    for (Method md : cl.getMethods()) {
-      if (md.isAnnotationPresent(Test.class)) {
-        methodsTest.add(md);
-      }
-      if (md.isAnnotationPresent(Before.class)) {
-        methodsBefore.add(md);
-
-      }
-      if (md.isAnnotationPresent(After.class)) {
-        methodsAfter.add(md);
-
-      }
-    }
-
-//    distributeMethods(cl.getMethods());
-
-  }
-
-  static Constructor<?> getConstructor(String className) throws NoSuchMethodException, ClassNotFoundException {
+  public static Constructor<?> getConstructorWithoutParameters(String className) throws NoSuchMethodException, ClassNotFoundException {
     Class cl = Class.forName(className);
     return cl.getConstructor(null);
   }
 
+  public static void addAnnotatedMethodsFromClass(String className, String annotationName, List<Method> listOfMethodsToFill) throws ClassNotFoundException {
+    addAnnotatedMethodsFromClass(className, annotationName, listOfMethodsToFill, false);
+  }
+
+  public static void addAnnotatedMethodsFromClass(String className, String annotationName, List<Method> listOfMethodsToFill, boolean clearList) throws ClassNotFoundException {
+    Class cl = Class.forName(className);
+    Class annotationClass = Class.forName(annotationName);
+    if(clearList){listOfMethodsToFill.clear();}
+    for (Method md : cl.getMethods()) {
+      if (md.isAnnotationPresent(annotationClass)) {
+        listOfMethodsToFill.add(md);
+      }
+    }
+  }
 }
 
