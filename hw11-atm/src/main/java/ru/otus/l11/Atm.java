@@ -58,11 +58,10 @@ public class Atm {
     if(denominationCellsList == null){
       throw new IllegalArgumentException("No cells for "+denominationValue+" bills in this ATM!");
     }
-    for(int i = 0; i < denominationCellsList.size(); i++){
+    for(int i = 0; i < denominationCellsList.size() && amountLeftToDistribute > 0 ; i++){
       amountForCurrentCell = Math.min(amountLeftToDistribute, denominationCellsList.get(i).getFreeSpace());
       amountLeftToDistribute -= amountForCurrentCell;
       distribution.add(amountForCurrentCell);
-      if(amountLeftToDistribute == 0) break;
 
     }
     if (amountLeftToDistribute != 0)
